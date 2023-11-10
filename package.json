@@ -1,7 +1,7 @@
 {
-  "name": "seedz-farms-core",
+  "name": "seedz-farm-core",
   "version": "1.0.0",
-  "description": "Seedz Farms",
+  "description": "A simple library to search for the city's CEP with coordinates and IBGE Code by CEP.",
   "main": "lib/src/index.js",
   "scripts": {
     "start:dev": "ts-node -r tsconfig-paths/register src/index.ts",
@@ -17,7 +17,7 @@
   },
   "keywords": [],
   "author": "Seedz",
-  "license": "ISC",
+  "license": "MIT",
   "files": [
     "lib/**/*"
   ],
