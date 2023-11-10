@@ -1,0 +1,54 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "target": "es2017",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["reflect-metadata", "jest"],
+    "lib": ["es2016", "dom"],
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "outDir": "./lib",
+    "rootDir": ".",
+    "strict": true,
+    "strictPropertyInitialization": false,
+    "strictNullChecks": false,
+    "esModuleInterop": true,
+    "declaration": true,
+    "baseUrl": ".",
+    "paths": {
+      "@api/*": [
+        "src/api/*"
+      ],
+      "@configs/*": [
+        "src/configs/*"
+      ],
+      "@error/*": [
+        "src/error/*"
+      ],
+      "@services/*": [
+        "src/services/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ]
+    },
+  },
+  "incremental": true,
+  "skipLibCheck": true,
+  "noImplicitAny": false,
+  "strictBindCallApply": false,
+  "forceConsistentCasingInFileNames": false,
+  "noFallthroughCasesInSwitch": false,
+  "include": [
+    "./*.js",
+    "./src",
+    "./modules.d.ts",
+    "./*.ts",
+    "./eslintrc.js",
+    "./utils",
+    "utils"
+  ],
+} 
