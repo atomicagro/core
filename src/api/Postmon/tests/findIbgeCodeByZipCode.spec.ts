@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import axios, { AxiosError } from 'axios';
+import axios, { AxiosError, HttpStatusCode } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { PostmonApi } from '@api/Postmon';
@@ -28,7 +28,7 @@ describe('PostmonApi', () => {
 
     const expectedData = Factory.makeCityInfo(ibgeCode);
 
-    mockAxios.onGet(`/cep/${zipCode}`).reply(200, expectedData);
+    mockAxios.onGet(`/cep/${zipCode}`).reply(HttpStatusCode.Ok, expectedData);
 
     const result = await postmonApi.findIbgeCodeByZipCode(zipCode);
 
@@ -42,14 +42,14 @@ describe('PostmonApi', () => {
 
     const zipCode = '38540-000';
     const error = new AxiosError();
-    mockAxios.onGet(`/cep/${zipCode}`).reply(404, error);
+    mockAxios.onGet(`/cep/${zipCode}`).reply(HttpStatusCode.NotFound, error);
 
     try {
       await postmonApi.findIbgeCodeByZipCode(zipCode);
     } catch (e) {
       expect(e).toBeInstanceOf(RequestError);
       expect((e as RequestError).message).toBe('REQUEST_ERROR');
-      expect((e as RequestError).status).toBe(404);
+      expect((e as RequestError).status).toBe(HttpStatusCode.NotFound);
     }
   });
 });

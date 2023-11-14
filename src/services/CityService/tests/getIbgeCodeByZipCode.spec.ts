@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { HttpStatusCode } from 'axios';
 import { Container } from 'inversify';
 
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
@@ -38,7 +39,7 @@ describe('CityService - getIbgeCodeByZipCode', () => {
 
     const zipCode = '92000-000';
 
-    const spy = jest.fn().mockRejectedValue(new RequestError({ data: '', status: 503 }));
+    const spy = jest.fn().mockRejectedValue(new RequestError({ data: '', status: HttpStatusCode.ServiceUnavailable }));
 
     const container = new Container();
     container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue({ findZipCodeByCoordinates: jest.fn() });
