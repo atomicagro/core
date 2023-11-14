@@ -15,8 +15,7 @@ export class GoogleMapsApi implements GoogleMaps {
   url: string;
 
   constructor() {
-    this.url = 'https://maps.googleapis.com/maps/api/geocode/json';
-    this.axios = axios.create();
+    this.axios = axios.create({ baseURL: 'https://maps.googleapis.com/maps/api' });
   }
 
   async findZipCodeByCoordinates(coordinates: Coordinates, token: string) {
@@ -28,7 +27,7 @@ export class GoogleMapsApi implements GoogleMaps {
     };
 
     try {
-      const { data } = await this.axios.get<LocationDetail>(this.url, { params });
+      const { data } = await this.axios.get<LocationDetail>('/geocode/json', { params });
 
       return GoogleMapsDto.build(data);
     } catch (e) {
