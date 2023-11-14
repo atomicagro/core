@@ -1,9 +1,9 @@
-import { InfoCity } from '@api/Postmon/interfaces/infoCity';
+import { CityInfo } from '@api/Postmon/interfaces/cityInfo';
 
 export class PostmonDto {
   ibgeCode: string;
 
-  static build(data: InfoCity) {
+  static build(data: CityInfo) {
     const postmonDto = new PostmonDto();
     postmonDto.ibgeCode = data?.cidade_info?.codigo_ibge;
 

@@ -26,7 +26,7 @@ describe('PostmonApi', () => {
     const zipCode = '38540-000';
     const ibgeCode = '4304606';
 
-    const expectedData = Factory.makeInfoCity(ibgeCode);
+    const expectedData = Factory.makeCityInfo(ibgeCode);
 
     mockAxios.onGet(`/cep/${zipCode}`).reply(200, expectedData);
 

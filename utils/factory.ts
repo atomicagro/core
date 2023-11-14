@@ -1,5 +1,5 @@
 import { LocationDetail } from '@api/GoogleMaps/interfaces/locationDetail';
-import { InfoCity } from '@api/Postmon/interfaces/infoCity';
+import { CityInfo } from '@api/Postmon/interfaces/cityInfo';
 
 export class Factory {
   static makeLocationDetail(zipCode: string) {
@@ -13,9 +13,9 @@ export class Factory {
     } as LocationDetail;
   }
 
-  static makeInfoCity(ibgeCode: string) {
+  static makeCityInfo(ibgeCode: string) {
     return {
       cidade_info: { codigo_ibge: ibgeCode },
-    } as InfoCity;
+    } as CityInfo;
   }
 }
