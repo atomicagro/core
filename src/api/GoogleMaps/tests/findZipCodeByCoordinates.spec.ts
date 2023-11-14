@@ -4,6 +4,7 @@ import axios, { AxiosError, HttpStatusCode } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 
 import { GoogleMapsApi } from '@api/GoogleMaps';
+import { Coordinates } from '@api/GoogleMaps/interfaces/coordinates';
 
 import RequestError from '@error/RequestError';
 
@@ -23,13 +24,13 @@ describe('GoogleMapsApi', () => {
   it('should call the Google Maps API and return the zip code data', async () => {
     const googleMapsApi = new GoogleMapsApi();
 
-    const coordinates = { lat: '123', long: '456' };
+    const coordinates: Coordinates = { lat: '123', long: '456' };
     const token = 'TOKEN';
     const zipCode = '38540-000';
 
     const expectedData = Factory.makeLocationDetail(zipCode);
 
-    mockAxios.onGet('https://maps.googleapis.com/maps/api/geocode/json').reply(HttpStatusCode.Ok, expectedData);
+    mockAxios.onGet('/geocode/json').reply(HttpStatusCode.Ok, expectedData);
 
     const result = await googleMapsApi.findZipCodeByCoordinates(coordinates, token);
 
@@ -40,11 +41,11 @@ describe('GoogleMapsApi', () => {
     expect.assertions(3);
     const googleMapsApi = new GoogleMapsApi();
 
-    const coordinates = { lat: '123', long: '456' };
+    const coordinates: Coordinates = { lat: '123', long: '456' };
     const token = 'TOKEN';
 
     const error = new AxiosError();
-    mockAxios.onGet('https://maps.googleapis.com/maps/api/geocode/json').reply(HttpStatusCode.Unauthorized, error);
+    mockAxios.onGet('/geocode/json').reply(HttpStatusCode.Unauthorized, error);
 
     try {
       await googleMapsApi.findZipCodeByCoordinates(coordinates, token);
