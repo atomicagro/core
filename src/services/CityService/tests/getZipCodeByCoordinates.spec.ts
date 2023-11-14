@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 
+import { HttpStatusCode } from 'axios';
 import { Container } from 'inversify';
 
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
@@ -40,7 +41,9 @@ describe('CityService - getZipCodeByCoordinates', () => {
     const coordinates = { lat: '123', long: '456' };
     const token = 'TOKEN';
 
-    const spy = jest.fn().mockRejectedValue(new RequestError({ data: 'Invalid token', status: 401 }));
+    const spy = jest
+      .fn()
+      .mockRejectedValue(new RequestError({ data: 'Invalid token', status: HttpStatusCode.Unauthorized }));
 
     const container = new Container();
     container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue({ findZipCodeByCoordinates: spy });
@@ -57,7 +60,7 @@ describe('CityService - getZipCodeByCoordinates', () => {
       expect(e).toBeInstanceOf(RequestError);
       expect((e as RequestError).message).toStrictEqual('REQUEST_ERROR');
       expect((e as RequestError).data).toStrictEqual('Invalid token');
-      expect((e as RequestError).status).toStrictEqual(401);
+      expect((e as RequestError).status).toStrictEqual(HttpStatusCode.Unauthorized);
       expect(spy).toHaveBeenCalledWith(coordinates, token);
     }
   });
