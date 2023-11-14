@@ -27,22 +27,6 @@
       ],
       "console": "integratedTerminal",
       "internalConsoleOptions": "neverOpen"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "E2E: Jest Current File",
-      "program": "${workspaceFolder}/node_modules/.bin/jest",
-      "cwd": "${workspaceFolder}/",
-      "args": [
-        "${file}",
-        "--config",
-        "./test/jest-e2e.json",
-        "--runInBand",
-        "--testTimeout=30000"
-      ],
-      "console": "integratedTerminal",
-      "internalConsoleOptions": "neverOpen"
     }
   ]
 }
