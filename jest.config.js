@@ -4,7 +4,7 @@ module.exports = {
   collectCoverageFrom: ['**/*.ts'],
   coveragePathIgnorePatterns: [
     '<rootDir>/src/configs',
-    '<rootDir>/src/main.ts',
+    '<rootDir>/src/index.ts',
     '<rootDir>/modules.d.ts',
     '<rootDir>/lib',
   ],
