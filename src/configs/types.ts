@@ -1,5 +1,8 @@
+import { TYPES_API } from '@api/types';
+
+import { TYPES_SERVICE } from '@services/CityService/types';
+
 export const TYPES = {
-  cityService: Symbol('CityService'),
-  googleMaps: Symbol('GoogleMaps'),
-  postmon: Symbol('Postmon'),
+  ...TYPES_API,
+  ...TYPES_SERVICE,
 };

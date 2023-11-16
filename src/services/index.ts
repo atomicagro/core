@@ -1,4 +1,4 @@
-import { container } from '@configs/inverse';
+import { container } from '@configs/ioc';
 import { TYPES } from '@configs/types';
 
 import { CityService } from './CityService';

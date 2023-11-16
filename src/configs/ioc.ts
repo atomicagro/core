@@ -2,9 +2,9 @@ import 'reflect-metadata';
 
 import { Container } from 'inversify';
 
-import { configureApi } from '@api/inverse';
+import { configureApi } from '@api/ioc';
 
-import { configureService } from '@services/invese';
+import { configureService } from '@services/ioc';
 
 export const container = new Container();
 
