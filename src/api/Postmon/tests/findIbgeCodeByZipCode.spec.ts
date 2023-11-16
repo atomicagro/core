@@ -9,7 +9,7 @@ import RequestError from '@error/RequestError';
 
 import { Factory } from '@utils/factory';
 
-describe('PostmonApi', () => {
+describe('PostmonApi - findIbgeCodeByZipCode', () => {
   let mockAxios: MockAdapter;
 
   beforeEach(() => {

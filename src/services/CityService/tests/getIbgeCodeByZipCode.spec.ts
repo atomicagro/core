@@ -1,11 +1,11 @@
 import 'reflect-metadata';
 
 import { HttpStatusCode } from 'axios';
-import { Container } from 'inversify';
 
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
 import { Postmon } from '@api/Postmon/interfaces/postmon';
 
+import { container } from '@configs/ioc';
 import { TYPES } from '@configs/types';
 
 import RequestError from '@error/RequestError';
@@ -13,14 +13,19 @@ import RequestError from '@error/RequestError';
 import { CityService } from '@services/CityService';
 
 describe('CityService - getIbgeCodeByZipCode', () => {
+  beforeEach(() => container.snapshot());
+
+  afterEach(() => container.restore());
+
   it('should return ibgeCode', async () => {
     const ibgeCode = '4304606';
     const zipCode = '92440-540';
 
     const spy = jest.fn().mockResolvedValue({ ibgeCode });
 
-    const container = new Container();
-    container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue({ findZipCodeByCoordinates: jest.fn() });
+    container
+      .bind<GoogleMaps>(TYPES.googleMaps)
+      .toConstantValue({ findZipCodeByCoordinates: jest.fn(), setToken: jest.fn() });
     container.bind<Postmon>(TYPES.postmon).toConstantValue({ findIbgeCodeByZipCode: spy });
 
     const cityService = new CityService(
@@ -41,8 +46,9 @@ describe('CityService - getIbgeCodeByZipCode', () => {
 
     const spy = jest.fn().mockRejectedValue(new RequestError({ data: '', status: HttpStatusCode.ServiceUnavailable }));
 
-    const container = new Container();
-    container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue({ findZipCodeByCoordinates: jest.fn() });
+    container
+      .bind<GoogleMaps>(TYPES.googleMaps)
+      .toConstantValue({ findZipCodeByCoordinates: jest.fn(), setToken: jest.fn() });
     container.bind<Postmon>(TYPES.postmon).toConstantValue({ findIbgeCodeByZipCode: spy });
 
     const cityService = new CityService(

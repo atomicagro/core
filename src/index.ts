@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 
-import { configureContainer } from '@configs/ioc';
-configureContainer();
+import { configure } from '@configs/ioc';
+configure();
 
 export { cityService } from '@services/index';

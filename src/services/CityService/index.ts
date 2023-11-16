@@ -16,8 +16,12 @@ class CityService {
     this.postmonApi = postmonApi;
   }
 
-  getZipCodeByCoordinates(coordinates: Coordinates, token: string) {
-    return this.googleMapsApi.findZipCodeByCoordinates(coordinates, token);
+  setGoogleMapsToken(token: string) {
+    this.googleMapsApi.setToken(token);
+  }
+
+  getZipCodeByCoordinates(coordinates: Coordinates) {
+    return this.googleMapsApi.findZipCodeByCoordinates(coordinates);
   }
 
   getIbgeCodeByZipCode(zipCode: string) {

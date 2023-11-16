@@ -4,6 +4,6 @@ import { TYPES } from '@configs/types';
 
 import { CityService } from './CityService';
 
-export function configureService(container: Container) {
+export function configure(container: Container) {
   container.bind<CityService>(TYPES.cityService).to(CityService).inSingletonScope();
 }
