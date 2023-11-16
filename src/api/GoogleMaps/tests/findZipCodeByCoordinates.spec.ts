@@ -10,7 +10,7 @@ import RequestError from '@error/RequestError';
 
 import { Factory } from '@utils/factory';
 
-describe('GoogleMapsApi', () => {
+describe('GoogleMapsApi - findZipCodeByCoordinates', () => {
   let mockAxios: MockAdapter;
 
   beforeEach(() => {
@@ -25,14 +25,13 @@ describe('GoogleMapsApi', () => {
     const googleMapsApi = new GoogleMapsApi();
 
     const coordinates: Coordinates = { lat: '123', long: '456' };
-    const token = 'TOKEN';
     const zipCode = '38540-000';
 
     const expectedData = Factory.makeLocationDetail(zipCode);
 
     mockAxios.onGet('/geocode/json').reply(HttpStatusCode.Ok, expectedData);
 
-    const result = await googleMapsApi.findZipCodeByCoordinates(coordinates, token);
+    const result = await googleMapsApi.findZipCodeByCoordinates(coordinates);
 
     expect(result).toMatchObject({ zipCode });
   });
@@ -42,13 +41,12 @@ describe('GoogleMapsApi', () => {
     const googleMapsApi = new GoogleMapsApi();
 
     const coordinates: Coordinates = { lat: '123', long: '456' };
-    const token = 'TOKEN';
 
     const error = new AxiosError();
     mockAxios.onGet('/geocode/json').reply(HttpStatusCode.Unauthorized, error);
 
     try {
-      await googleMapsApi.findZipCodeByCoordinates(coordinates, token);
+      await googleMapsApi.findZipCodeByCoordinates(coordinates);
     } catch (e) {
       expect(e).toBeInstanceOf(RequestError);
       expect((e as RequestError).message).toBe('REQUEST_ERROR');

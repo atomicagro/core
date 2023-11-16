@@ -8,7 +8,7 @@ import { TYPES } from '@configs/types';
 import { GoogleMapsApi } from './GoogleMaps';
 import { PostmonApi } from './Postmon';
 
-export function configureApi(container: Container) {
+export function configure(container: Container) {
   container.bind<GoogleMaps>(TYPES.googleMaps).to(GoogleMapsApi).inSingletonScope();
   container.bind<Postmon>(TYPES.postmon).to(PostmonApi).inSingletonScope();
 }

@@ -18,10 +18,13 @@ export class GoogleMapsApi implements GoogleMaps {
     this.axios = axios.create({ baseURL: 'https://maps.googleapis.com/maps/api' });
   }
 
-  async findZipCodeByCoordinates(coordinates: Coordinates, token: string) {
+  setToken(token: string) {
+    this.axios.defaults.params = { key: token };
+  }
+
+  async findZipCodeByCoordinates(coordinates: Coordinates) {
     const { lat, long } = coordinates;
     const params = {
-      key: token,
       latlng: `${lat},${long}`,
       result_type: ['postal_code', 'administrative_area_level_2'],
     };
