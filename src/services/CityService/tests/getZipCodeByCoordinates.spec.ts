@@ -35,7 +35,7 @@ describe('CityService - getZipCodeByCoordinates', () => {
     expect(spy).toHaveBeenCalledWith(coordinates, token);
   });
 
-  it('should return throw erro invalid token', async () => {
+  it('should return throw error when invalid token', async () => {
     expect.assertions(5);
 
     const coordinates = { lat: '123', long: '456' };

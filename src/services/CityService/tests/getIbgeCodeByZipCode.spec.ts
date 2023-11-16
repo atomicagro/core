@@ -34,7 +34,7 @@ describe('CityService - getIbgeCodeByZipCode', () => {
     expect(spy).toHaveBeenCalledWith(zipCode);
   });
 
-  it('should return throw erro of IbgeCodeNotFoundError', async () => {
+  it('should return throw erro of RequestError', async () => {
     expect.assertions(3);
 
     const zipCode = '92000-000';

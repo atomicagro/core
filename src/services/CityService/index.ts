@@ -1,4 +1,4 @@
-import { injectable, inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
 import { Coordinates } from '@api/GoogleMaps/interfaces/coordinates';
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
@@ -16,12 +16,12 @@ class CityService {
     this.postmonApi = postmonApi;
   }
 
-  async getZipCodeByCoordinates(coordinates: Coordinates, token: string) {
-    return await this.googleMapsApi.findZipCodeByCoordinates(coordinates, token);
+  getZipCodeByCoordinates(coordinates: Coordinates, token: string) {
+    return this.googleMapsApi.findZipCodeByCoordinates(coordinates, token);
   }
 
-  async getIbgeCodeByZipCode(zipCode: string) {
-    return await this.postmonApi.findIbgeCodeByZipCode(zipCode);
+  getIbgeCodeByZipCode(zipCode: string) {
+    return this.postmonApi.findIbgeCodeByZipCode(zipCode);
   }
 }
 
