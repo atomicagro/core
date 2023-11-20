@@ -1,0 +1,24 @@
+name: lint-ci
+
+on:
+  pull_request:
+    branches:
+      - '**'
+
+jobs:
+  lint-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Node
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.21'
+
+      - name: Install dependencies
+        run: yarn
+
+      - name: Run lint:check
+        run: yarn lint:check
