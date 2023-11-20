@@ -12,7 +12,6 @@ import RequestError from '@error/RequestError';
 @injectable()
 export class GoogleMapsApi implements GoogleMaps {
   axios: AxiosInstance;
-  url: string;
 
   constructor() {
     this.axios = axios.create({ baseURL: 'https://maps.googleapis.com/maps/api' });

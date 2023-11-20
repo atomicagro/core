@@ -2,7 +2,9 @@ import 'reflect-metadata';
 
 import { HttpStatusCode } from 'axios';
 
+import { GoogleMapsApi } from '@api/GoogleMaps';
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
+import { PostmonApi } from '@api/Postmon';
 import { Postmon } from '@api/Postmon/interfaces/postmon';
 
 import { container } from '@configs/ioc';
@@ -21,17 +23,16 @@ describe('CityService - getIbgeCodeByZipCode', () => {
     const ibgeCode = '4304606';
     const zipCode = '92440-540';
 
-    const spy = jest.fn().mockResolvedValue({ ibgeCode });
+    const googleMapsApi = new GoogleMapsApi();
+    const postmonApi = new PostmonApi();
 
-    container
-      .bind<GoogleMaps>(TYPES.googleMaps)
-      .toConstantValue({ findZipCodeByCoordinates: jest.fn(), setToken: jest.fn() });
-    container.bind<Postmon>(TYPES.postmon).toConstantValue({ findIbgeCodeByZipCode: spy });
+    const spy = jest.spyOn(postmonApi, 'findIbgeCodeByZipCode').mockResolvedValue({ ibgeCode });
 
-    const cityService = new CityService(
-      container.get<GoogleMaps>(TYPES.googleMaps),
-      container.get<Postmon>(TYPES.postmon),
-    );
+    container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue(googleMapsApi);
+    container.bind<Postmon>(TYPES.postmon).toConstantValue(postmonApi);
+    container.bind<CityService>(TYPES.cityService).to(CityService);
+
+    const cityService = container.get<CityService>(TYPES.cityService);
 
     const result = await cityService.getIbgeCodeByZipCode(zipCode);
 
@@ -44,17 +45,18 @@ describe('CityService - getIbgeCodeByZipCode', () => {
 
     const zipCode = '92000-000';
 
-    const spy = jest.fn().mockRejectedValue(new RequestError({ data: '', status: HttpStatusCode.ServiceUnavailable }));
+    const googleMapsApi = new GoogleMapsApi();
+    const postmonApi = new PostmonApi();
 
-    container
-      .bind<GoogleMaps>(TYPES.googleMaps)
-      .toConstantValue({ findZipCodeByCoordinates: jest.fn(), setToken: jest.fn() });
-    container.bind<Postmon>(TYPES.postmon).toConstantValue({ findIbgeCodeByZipCode: spy });
+    const spy = jest
+      .spyOn(postmonApi, 'findIbgeCodeByZipCode')
+      .mockRejectedValue(new RequestError({ data: '', status: HttpStatusCode.ServiceUnavailable }));
 
-    const cityService = new CityService(
-      container.get<GoogleMaps>(TYPES.googleMaps),
-      container.get<Postmon>(TYPES.postmon),
-    );
+    container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue(googleMapsApi);
+    container.bind<Postmon>(TYPES.postmon).toConstantValue(postmonApi);
+    container.bind<CityService>(TYPES.cityService).to(CityService);
+
+    const cityService = container.get<CityService>(TYPES.cityService);
 
     try {
       await cityService.getIbgeCodeByZipCode(zipCode);

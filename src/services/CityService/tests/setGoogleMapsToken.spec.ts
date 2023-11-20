@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 
+import { GoogleMapsApi } from '@api/GoogleMaps';
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
+import { PostmonApi } from '@api/Postmon';
 import { Postmon } from '@api/Postmon/interfaces/postmon';
 
 import { container } from '@configs/ioc';
@@ -16,17 +18,16 @@ describe('CityService - setGoogleMapsToken', () => {
   it('should return undefined when set token in google maps api', async () => {
     const token = 'TOKEN';
 
-    const spy = jest.fn().mockReturnValue(undefined);
+    const googleMapsApi = new GoogleMapsApi();
+    const postmonApi = new PostmonApi();
 
-    container
-      .bind<GoogleMaps>(TYPES.googleMaps)
-      .toConstantValue({ findZipCodeByCoordinates: jest.fn(), setToken: spy });
-    container.bind<Postmon>(TYPES.postmon).toConstantValue({ findIbgeCodeByZipCode: jest.fn() });
+    const spy = jest.spyOn(googleMapsApi, 'setToken').mockReturnValue(undefined);
 
-    const cityService = new CityService(
-      container.get<GoogleMaps>(TYPES.googleMaps),
-      container.get<Postmon>(TYPES.postmon),
-    );
+    container.bind<GoogleMaps>(TYPES.googleMaps).toConstantValue(googleMapsApi);
+    container.bind<Postmon>(TYPES.postmon).toConstantValue(postmonApi);
+    container.bind<CityService>(TYPES.cityService).to(CityService);
+
+    const cityService = container.get<CityService>(TYPES.cityService);
 
     const result = cityService.setGoogleMapsToken(token);
 
