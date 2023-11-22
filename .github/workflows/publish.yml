@@ -8,6 +8,7 @@ env:
   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
   NPM_TOKEN: ${{secrets.NPM_TOKEN}}
   token: ${{secrets.NPM_TOKEN}}
+  V_NPM_TOEKN: ${{vars.V_NPM_TOEKN}}
 
 jobs:
   build:
@@ -26,6 +27,9 @@ jobs:
 
       - name: PRINT
         run: echo $NPM_TOKEN
+
+      - name: PRINT 2
+        run: echo $V_NPM_TOEKN
 
       - name: Build project
         run: yarn build
