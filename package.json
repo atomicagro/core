@@ -1,26 +1,26 @@
 {
-  "name": "seedz-farm-core",
-  "version": "1.0.0",
+  "name": "@seedz-d2f/seedz-farm-core",
+  "version": "1.0.3",
   "description": "A simple library to search for the city's CEP with coordinates and IBGE Code by CEP.",
   "main": "lib/src/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/atomicagro/core.git"
+  },
   "scripts": {
-    "start:dev": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "yarn clean && tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
     "clean": "rimraf lib",
-    "build": "npm run clean && tsc && tsc-alias",
+    "lint:check": "eslint \"{src,test,utils}/**/*.ts\"",
+    "lint:write": "eslint \"{src,test,utils}/**/*.ts\" --fix",
+    "start:dev": "ts-node -r tsconfig-paths/register src/index.ts",
     "test": "jest",
     "test:cov": "jest --coverage --config ./jest.config.js",
     "test:unit": "jest --runInBand --config ./jest.config.js",
-    "prepublish": "npm run && npm run build",
-    "lint:check": "eslint \"{src,test,utils}/**/*.ts\"",
-    "lint:write": "eslint \"{src,test,utils}/**/*.ts\" --fix",
-    "type:check": "./node_modules/.bin/tsc -p . --noEmit --skipLibCheck"
+    "type:check": "tsc -p . --noEmit --skipLibCheck"
   },
   "keywords": [],
   "author": "Seedz",
   "license": "MIT",
-  "files": [
-    "lib/**/*"
-  ],
   "devDependencies": {
     "@types/jest": "29.5.8",
     "@typescript-eslint/eslint-plugin": "5.0.0",
@@ -45,5 +45,9 @@
     "dotenv": "16.3.1",
     "inversify": "6.0.2",
     "reflect-metadata": "0.1.13"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/atomicagro/core/issues"
+  },
+  "homepage": "https://github.com/atomicagro/core#readme"
 }

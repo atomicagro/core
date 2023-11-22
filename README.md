@@ -7,7 +7,7 @@ A simple library to search for the city's CEP with coordinates and IBGE Code by 
 Install the library using yarn:
 
 ```bash
-yarn add seedz-farm-core
+yarn add @seedz-d2f/seedz-farm-core
 ```
 
 ## How to use
@@ -15,7 +15,7 @@ yarn add seedz-farm-core
 Import the City Service instance into your code:
 
 ```js
-const { cityService } = require('seedz-farm-core');
+const { cityService } = require('@seedz-d2f/seedz-farm-core');
 ```
 
 Set Token default to Google Maps
