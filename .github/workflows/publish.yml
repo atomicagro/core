@@ -12,7 +12,8 @@ env:
   V_NPM_TOEKN: ${{vars.V_NPM_TOEKN}}
 
 jobs:
-  build:
+  publish:
+    environment: Deploy
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
