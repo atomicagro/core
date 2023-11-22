@@ -1,8 +1,9 @@
 name: Publish Package to npmjs
 
 on:
-  release:
-    types: [published]
+  push:
+    branches:
+      - master
 
 env:
   NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
@@ -19,17 +20,21 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: '14.21.3'
-          registry-url: 'https://registry.npmjs.org'
-          scope: '@seedz-d2f'
 
       - name: Install dependencies
         run: yarn
 
       - name: PRINT
-        run: echo $NPM_TOKEN
+        run: echo "NPM_TOKEN- $NPM_TOKEN"
 
       - name: PRINT 2
-        run: echo $V_NPM_TOEKN
+        run: echo "V_NPM_TOEKN- $V_NPM_TOEKN"
+
+      - name: PRINT 3
+        run: echo "SECRET_NPM_TOKEN- ${{secrets.NPM_TOKEN}}"
+
+      - name: PRINT 4
+        run: echo "VAR_V_NPM_TOEKN- ${{vars.V_NPM_TOEKN}}"
 
       - name: Build project
         run: yarn build
