@@ -24,6 +24,9 @@ jobs:
       - name: Install dependencies
         run: yarn
 
+      - name: PRINT
+        run: echo $NPM_TOKEN
+
       - name: Build project
         run: yarn build
 
