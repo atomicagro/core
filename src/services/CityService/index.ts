@@ -27,6 +27,10 @@ class CityService {
   getIbgeCodeByZipCode(zipCode: string) {
     return this.postmonApi.findIbgeCodeByZipCode(zipCode);
   }
+
+  getCityByCoordinates(coordinates: Coordinates) {
+    return this.googleMapsApi.findCityByCoordinates(coordinates);
+  }
 }
 
 export { CityService };
