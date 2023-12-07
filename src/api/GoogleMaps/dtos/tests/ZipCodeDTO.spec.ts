@@ -1,8 +1,8 @@
-import { GoogleMapsDto } from '@api/GoogleMaps/dtos/GoogleMapsDTO';
+import { ZipCodeDto } from '@api/GoogleMaps/dtos/ZipCodeDTO';
 import { LocationDetail } from '@api/GoogleMaps/interfaces/locationDetail';
 
-describe('GoogleMapsDTO', () => {
-  it('should return a valid GoogleMapsDTO object', async () => {
+describe('ZipCodeDTO', () => {
+  it('should return a valid ZipCodeDTO object', async () => {
     const data: LocationDetail = {
       results: [
         {
@@ -35,10 +35,10 @@ describe('GoogleMapsDTO', () => {
         },
       ],
     };
-    const googleMapsDto = GoogleMapsDto.build(data);
+    const zipCodeDto = ZipCodeDto.build(data);
 
-    expect(googleMapsDto.zipCode).toStrictEqual(data.results[0].address_components[0].long_name);
+    expect(zipCodeDto.zipCode).toStrictEqual(data.results[0].address_components[0].long_name);
 
-    expect(Object.keys(googleMapsDto)).toHaveLength(1);
+    expect(Object.keys(zipCodeDto)).toHaveLength(1);
   });
 });
