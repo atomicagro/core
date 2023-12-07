@@ -1,7 +1,8 @@
 import axios, { AxiosError, AxiosInstance } from 'axios';
 import { injectable } from 'inversify';
 
-import { GoogleMapsDto } from '@api/GoogleMaps/dtos/GoogleMapsDTO';
+import { CityDto } from '@api/GoogleMaps/dtos/CityDTO';
+import { ZipCodeDto } from '@api/GoogleMaps/dtos/ZipCodeDTO';
 import { Coordinates } from '@api/GoogleMaps/interfaces/coordinates';
 import { GoogleMaps } from '@api/GoogleMaps/interfaces/googleMaps';
 import { LocationDetail } from '@api/GoogleMaps/interfaces/locationDetail';
@@ -22,6 +23,18 @@ export class GoogleMapsApi implements GoogleMaps {
   }
 
   async findZipCodeByCoordinates(coordinates: Coordinates) {
+    const { data } = await this.request(coordinates);
+
+    return ZipCodeDto.build(data);
+  }
+
+  async findCityByCoordinates(coordinates: Coordinates) {
+    const { data } = await this.request(coordinates);
+
+    return CityDto.build(data);
+  }
+
+  async request(coordinates: Coordinates) {
     const { lat, long } = coordinates;
     const params = {
       latlng: `${lat},${long}`,
@@ -29,9 +42,7 @@ export class GoogleMapsApi implements GoogleMaps {
     };
 
     try {
-      const { data } = await this.axios.get<LocationDetail>('/geocode/json', { params });
-
-      return GoogleMapsDto.build(data);
+      return await this.axios.get<LocationDetail>('/geocode/json', { params });
     } catch (e) {
       if ((e as AxiosError).response) throw new RequestError(parseError(e));
       throw e;
