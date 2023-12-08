@@ -5,6 +5,9 @@ on:
     branches:
       - '**'
 
+env:
+  NPM_TOKEN: ${{secrets.NPM_TOKEN}}
+
 jobs:
   ts-check:
     runs-on: ubuntu-latest

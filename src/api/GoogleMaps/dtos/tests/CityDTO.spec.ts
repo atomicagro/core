@@ -1,8 +1,8 @@
-import { GoogleMapsDto } from '@api/GoogleMaps/dtos/GoogleMapsDTO';
+import { CityDto } from '@api/GoogleMaps/dtos/CityDTO';
 import { LocationDetail } from '@api/GoogleMaps/interfaces/locationDetail';
 
-describe('GoogleMapsDTO', () => {
-  it('should return a valid GoogleMapsDTO object', async () => {
+describe('CityDTO', () => {
+  it('should return a valid CityDTO object', async () => {
     const data: LocationDetail = {
       results: [
         {
@@ -35,10 +35,12 @@ describe('GoogleMapsDTO', () => {
         },
       ],
     };
-    const googleMapsDto = GoogleMapsDto.build(data);
+    const cityDto = CityDto.build(data);
 
-    expect(googleMapsDto.zipCode).toStrictEqual(data.results[0].address_components[0].long_name);
+    expect(cityDto.name).toStrictEqual(data.results[0].address_components[1].long_name);
+    expect(cityDto.state.uf).toStrictEqual(data.results[0].address_components[2].short_name);
+    expect(cityDto.zipCode).toStrictEqual(data.results[0].address_components[0].long_name);
 
-    expect(Object.keys(googleMapsDto)).toHaveLength(1);
+    expect(Object.keys(cityDto)).toHaveLength(3);
   });
 });

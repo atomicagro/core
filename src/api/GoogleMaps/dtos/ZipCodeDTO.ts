@@ -2,18 +2,18 @@ import { AddressComponent } from '@api/GoogleMaps/interfaces/addressComponent';
 import { LocationDetail } from '@api/GoogleMaps/interfaces/locationDetail';
 import { Result } from '@api/GoogleMaps/interfaces/result';
 
-export class GoogleMapsDto {
+export class ZipCodeDto {
   zipCode: string;
 
   static build(data: LocationDetail) {
-    const googleMapsDto = new GoogleMapsDto();
+    const zipCodeDto = new ZipCodeDto();
 
     const results = data.results.find(this.findZipCode);
     const addressComponents = results?.address_components.find(this.findZipCode);
 
-    googleMapsDto.zipCode = addressComponents?.long_name;
+    zipCodeDto.zipCode = addressComponents?.long_name;
 
-    return googleMapsDto;
+    return zipCodeDto;
   }
 
   static findZipCode(data: Result | AddressComponent) {
