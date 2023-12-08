@@ -1,6 +1,6 @@
 {
   "name": "@seedz-d2f/seedz-farm-core",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "A simple library to search for the city's CEP with coordinates and IBGE Code by CEP.",
   "main": "lib/src/index.js",
   "repository": {
